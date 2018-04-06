@@ -55,3 +55,27 @@ fun sum_cards(cs: card list)=
 val test5 = sum_cards[(Clubs,Num 5),(Clubs, Ace)]
 
 
+fun all_same_color (cs : card list) =
+    case cs of 
+        [] => true
+      | _::[] => true
+      | head::(neck::rest) => (card_color(head)=card_color(neck) andalso 
+                               all_same_color(neck::rest))
+
+fun score(hd: card list, goal: int )=
+    let 
+        val sum = sum_cards(hd)
+        val score_1 = 3*(sum-goal)
+        val score_2 = goal-sum
+        val calc_score =  if sum > goal
+                         then score_1
+                         else score_2
+    in
+        if all_same_color(hd)
+        then calc_score div 2
+        else calc_score
+       
+    end
+    
+val test6 = score([(Hearts,Num 3),(Clubs, Num 4)],10)
+
