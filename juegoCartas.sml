@@ -21,15 +21,8 @@ fun card_value(c:card)=
         |(_,Queen)=>10
         |(_,King)=>10
         |(_,Ace)=>11
-        |(_,Num 2) => 2
-        |(_,Num 3) => 3
-        |(_,Num 4) => 4
-        |(_,Num 5) => 5
-        |(_,Num 6) => 6
-        |(_,Num 7) => 7
-        |(_,Num 8) => 8
-        |(_,Num 9) => 9
-        (*|(_,Num i)=>i*)
+       
+        |(_,Num i)=>i
 
 (*Funcion que devuelve una lista sin la carta que se elimino*)
 fun remove_card(cs:card list, c: card, e: exn)=
@@ -60,6 +53,7 @@ fun all_same_color(cs : card list) =
                                all_same_color(neck::rest))
 
 (*Funcion que calcula el puntaje del jugador segun la suma del rank de su maso de cartas*)
+
 fun score(hd: card list, goal: int )=
     let 
         val sum = sum_cards(hd)
@@ -74,7 +68,7 @@ fun score(hd: card list, goal: int )=
         else calc_score
        
     end
-    
+
 
 (*Funcion que indicaque termina el juego, indica el puntaje final de un jugador según los movimientos implementados *)
 fun officiate (card_list: card list, move_list: move list, goal: int) =
@@ -99,3 +93,8 @@ fun officiate (card_list: card list, move_list: move list, goal: int) =
     end
   
 
+
+
+  
+
+	    
