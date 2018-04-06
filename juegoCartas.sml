@@ -43,3 +43,15 @@ val test3 = remove_card([(Hearts,Ace),(Clubs,Ace)],(Hearts,Ace), IllegalMove)
 
 
 
+fun sum_cards(cs: card list)=
+    let fun aux_sum(cs,acum)=
+        case cs of
+            [] => acum
+            | head :: rest => aux_sum(rest , acum + card_value(head)) 
+    in
+        aux_sum(cs,0)
+    end
+    
+val test5 = sum_cards[(Clubs,Num 5),(Clubs, Ace)]
+
+
