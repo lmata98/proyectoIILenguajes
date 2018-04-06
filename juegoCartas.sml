@@ -30,8 +30,16 @@ fun card_value(c:card)=
         |(_,Num 8) => 8
         |(_,Num 9) => 9
         (*|(_,Num i)=>i*)
-
-       
-
 val test2 = card_value(Spades,Queen)
+
+fun remove_card(cs:card list, c: card, e: exn)=
+    case cs of
+        [] => raise e
+        | head :: rest => if c = head
+                          then rest
+                          else remove_card(rest,c,e)
+                          
+val test3 = remove_card([(Hearts,Ace),(Clubs,Ace)],(Hearts,Ace), IllegalMove)       
+
+
 
