@@ -79,3 +79,22 @@ fun score(hd: card list, goal: int )=
     
 val test6 = score([(Hearts,Num 3),(Clubs, Num 4)],10)
 
+fun officiate(card_list: card list, move_list: move list, goal: int)=
+    let 
+	fun helper(card_list_aux:card list,move_list_aux:move list,held_list_aux:card list)=
+	    case move_list_aux of
+		[] => score(held_list_aux,goal)
+	      (*tomar la cabeza de la lista, si es Discard hace match con el segundo case,en llamada recursiva se llama a la funcion remove para eliminar carta solicitada*)
+	      | ( Discard crd)::rest => helper(card_list_aux,rest,remove_card(held_list_aux,crd,IllegalMove)) 
+	      |  _::rest => (case card_list_aux of (*si la cabeza no es Discart hace match lo otro que se, en este caso sea con Draw, entra ejecuta este case*) 
+				 []=> score(held_list_aux,goal)(*termina el juego y da como resultado el score*)
+			      | head::rest => if(sum_cards(head::held_list_aux) > goal)(*validar si la suma de held-card con una carta más no sea mayoa que goaldel >< que goal*)
+					      then 
+						  score(held_list_aux,goal)(*si la suma es mayor, el juego termina y da el score*)
+					      else
+						  helper(rest,move_list_aux,head::held_list_aux)(*continua el juego con held car mas grande y card list mas pequeño*))(*fin del case Draw*)
+    in
+	helper(card_list,move_list,[])
+    end
+  
+val test7 = officiate([(Hearts,Num 2),(Clubs, Num 4)],[Draw],15)
